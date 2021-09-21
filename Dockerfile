@@ -2,8 +2,8 @@ FROM debian
 COPY . .
 WORKDIR /
 RUN apt update && apt -y install openssh-server && apt -y install vim
-RUN mkdir -p /root/.ssh
-ADD id_rsa /root/.ssh/id_rsa
-RUN chmod 700 /root/.ssh/id_rsa
-RUN touch /root/.ssh/config
-CMD [ "echo "Host $(/sbin/ip route|awk '/default/ { print $3 }')\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config" ]
+RUN useradd -m izaitsev
+RUN mkdir -p /home/izaitsev/.ssh
+#RUN cp /id_rsa_pub /home/izaitsev/.ssh/
+RUN chown -R izaitsev:izaitsev /home/izaitsev/.ssh
+RUN echo "Host izaitsev\n\tStrictHostKeyChecking no\n" >> /home/izaitsev/.ssh/config
