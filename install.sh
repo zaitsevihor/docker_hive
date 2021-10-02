@@ -9,3 +9,5 @@ do
 	#sudo docker rmi docker_hive
 	n=$((${n}+1))
 done
+sudo docker ps -a
+echo "172.18.1.1 - 172.18.1.20"

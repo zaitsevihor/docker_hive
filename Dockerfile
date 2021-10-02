@@ -2,7 +2,8 @@ FROM alpine
 COPY . .
 WORKDIR /
 ARG pass
-RUN apk update && apk add openssh-server && apk add openrc && \
+RUN apk update && apk add openssh-server && apk add openrc && apk --update add openssh-client && \
+	apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python && \
 	ssh-keygen -A && \
 	adduser --disabled-password izaitsev && echo -e "$pass\n$pass\n" | passwd izaitsev && \
 	mkdir /home/izaitsev/.ssh && chown izaitsev:izaitsev /home/izaitsev/.ssh && chmod 700 /home/izaitsev/.ssh && \
